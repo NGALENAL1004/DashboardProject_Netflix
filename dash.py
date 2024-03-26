@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(page_title="Dashboard", page_icon=":bar_chart:", layout="wide")
+st.set_page_config(page_title="NetflixDashboard", page_icon=":bar_chart:", layout="wide")
 
 # Netflix colors
 primary_red = '#ff0000'
