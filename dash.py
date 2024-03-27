@@ -154,7 +154,7 @@ with  col2:
     country_counts = country_df['country'].value_counts().reset_index(name='Count')
     # Create chloropleth map for the number of programs per country
     fig = px.choropleth(country_counts, locations=country_counts.index, locationmode='country names', color='Count',
-                        hover_name='index',
+                        hover_name=country_counts.index,
                         projection='natural earth',
                         labels={'Count': 'Number of Programs'},
                         title='Distribution of Netflix Programs by Country',
