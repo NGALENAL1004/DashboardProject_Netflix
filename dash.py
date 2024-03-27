@@ -128,7 +128,7 @@ with col3:
 col1, col2 = st.columns([1, 1])
 
 ### Visualization 4
-with  col1:
+with col1:
     # Split genres for each title and stack them into a new DataFrame
     genre_df = data['listed_in'].str.split(', ', expand=True).stack().reset_index(level=1, drop=True).rename('genre')
     genre_df = data.drop('listed_in', axis=1).join(genre_df).reset_index(drop=True)
@@ -136,13 +136,15 @@ with  col1:
     top_genres = genre_df['genre'].value_counts().reset_index(name='Count')
     # Select the top 10 most frequent genres
     top_10_genres = top_genres.head(10)
+    # Rename the 'index' column to 'genre'
+    top_10_genres = top_10_genres.rename(columns={'index': 'genre'})
     # Create horizontal bar chart
-    fig = px.bar(top_10_genres, x='Count', y=top_10_genres.index, orientation='h',
+    fig = px.bar(top_10_genres, x='Count', y='genre', orientation='h',
                 title='Top 10 Genres on Netflix',
-                labels={'index': 'Genre', 'Count': 'Number of Titles'})
+                labels={'genre': 'Genre', 'Count': 'Number of Titles'})
     fig.update_traces(marker_color=primary_red)
     fig.update_traces(text=top_10_genres['Count'], textposition='outside')
-    fig.update_layout(width=700, height=400)
+    fig.update_layout(width=680, height=400)
     st.plotly_chart(fig)
 
 ### Visualization 5
@@ -152,9 +154,10 @@ with  col2:
     country_df = data.drop('country', axis=1).join(country_df).reset_index(drop=True)
     # Count the number of programs per country
     country_counts = country_df['country'].value_counts().reset_index(name='Count')
+    country_counts = country_counts.rename(columns={'index': 'country'})
     # Create chloropleth map for the number of programs per country
-    fig = px.choropleth(country_counts, locations=country_counts.index, locationmode='country names', color='Count',
-                        hover_name=country_counts.index,
+    fig = px.choropleth(country_counts, locations='country', locationmode='country names', color='Count',
+                        hover_name='country',
                         projection='natural earth',
                         labels={'Count': 'Number of Programs'},
                         title='Distribution of Netflix Programs by Country',
