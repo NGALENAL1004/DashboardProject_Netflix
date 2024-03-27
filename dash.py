@@ -153,7 +153,7 @@ with  col2:
     # Count the number of programs per country
     country_counts = country_df['country'].value_counts().reset_index(name='Count')
     # Create chloropleth map for the number of programs per country
-    fig = px.choropleth(country_counts, locations='index', locationmode='country names', color='Count',
+    fig = px.choropleth(country_counts, locations=country_counts.index, locationmode='country names', color='Count',
                         hover_name='index',
                         projection='natural earth',
                         labels={'Count': 'Number of Programs'},
