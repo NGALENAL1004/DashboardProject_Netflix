@@ -137,7 +137,7 @@ with  col1:
     # Select the top 10 most frequent genres
     top_10_genres = top_genres.head(10)
     # Create horizontal bar chart
-    fig = px.bar(top_10_genres, x='Count', y='index', orientation='h',
+    fig = px.bar(top_10_genres, x='Count', y=top_10_genres.index, orientation='h',
                 title='Top 10 Genres on Netflix',
                 labels={'index': 'Genre', 'Count': 'Number of Titles'})
     fig.update_traces(marker_color=primary_red)
